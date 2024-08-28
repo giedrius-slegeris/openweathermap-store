@@ -1,6 +1,6 @@
-package main
+package api
 
-type oneCallResp struct {
+type OneCallResp struct {
 	Lat            float64 `json:"lat"`
 	Lon            float64 `json:"lon"`
 	Timezone       string  `json:"timezone"`
