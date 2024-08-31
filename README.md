@@ -12,3 +12,5 @@ the project:
 - OPEN_WEATHER_MAP_LATITUDE
 - OPEN_WEATHER_MAP_LONGITUDE
 - OPEN_WEATHER_MAP_UNITS (either metric or imperial)
+- TIMEZONE (Europe/London)
+- SCHEDULER_CRON (cron format for the scheduler to run API calls e.g. "*/5 * * * *" to run every 5 minutes)

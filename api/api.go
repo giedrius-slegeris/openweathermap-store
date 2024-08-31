@@ -4,9 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"net"
 	"net/http"
 	"net/url"
 	"os"
+	"time"
 )
 
 type OpenWeatherApi struct{}
@@ -21,8 +23,20 @@ func (o *OpenWeatherApi) Get() (*OneCallResp, error) {
 		return nil, err
 	}
 
+	// construct HTTP Client with timeouts
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+		Transport: &http.Transport{
+			DialContext: (&net.Dialer{
+				Timeout: 5 * time.Second,
+			}).DialContext,
+			TLSHandshakeTimeout:   5 * time.Second,
+			ResponseHeaderTimeout: 5 * time.Second,
+		},
+	}
+
 	// Make the HTTP request
-	resp, err := http.Get(apiURL.String())
+	resp, err := client.Get(apiURL.String())
 	if err != nil {
 		return nil, err
 	}
