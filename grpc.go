@@ -9,7 +9,7 @@ import (
 
 func (s *server) GetWeatherData(ctx context.Context, req *pb.GetWeatherDataRequest) (*pb.GetWeatherDataResponse, error) {
 	if oneCallCache == nil || oneCallCache.resp == nil {
-		return nil, status.Errorf(codes.Unavailable, "Unimplemented")
+		return nil, status.Errorf(codes.Unavailable, "Weather data unavailable")
 	}
 
 	return &pb.GetWeatherDataResponse{
