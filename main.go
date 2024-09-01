@@ -4,15 +4,24 @@ import (
 	"fmt"
 	"giedrius-slegeris/openweathermap-store/api"
 	"giedrius-slegeris/openweathermap-store/cron"
+	pb "github.com/giedrius-slegeris/proto-definitions/openweathermap-store"
 	"github.com/joho/godotenv"
+	"google.golang.org/grpc"
 	"log"
+	"net"
+	"os"
 	"sync"
 	"time"
 )
 
 var (
+	s            *server
 	oneCallCache *oneCallResults
 )
+
+type server struct {
+	pb.UnimplementedOpenWeatherMapStoreServerServer
+}
 
 type oneCallResults struct {
 	sync.Mutex
@@ -46,9 +55,18 @@ func main() {
 		fmt.Printf("Failed to start cron task: %s\n", err)
 	}
 
-	// temporary measure to keep the server alive
-	for {
-		time.Sleep(5 * time.Minute)
+	// start GRPC server
+	listenPort := os.Getenv("GRPC_LISTEN_PORT")
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%s", listenPort))
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
+
+	gs := grpc.NewServer()
+	pb.RegisterOpenWeatherMapStoreServerServer(gs, s)
+	fmt.Println("Server is listening on port " + listenPort)
+	if err := gs.Serve(lis); err != nil {
+		log.Fatalf("failed to serve: %s", err)
 	}
 }
 

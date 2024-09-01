@@ -14,3 +14,4 @@ the project:
 - OPEN_WEATHER_MAP_UNITS (either metric or imperial)
 - TIMEZONE (Europe/London)
 - SCHEDULER_CRON (cron format for the scheduler to run API calls e.g. "*/5 * * * *" to run every 5 minutes)
+- GRPC_LISTEN_PORT
