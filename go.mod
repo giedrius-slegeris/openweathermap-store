@@ -3,7 +3,7 @@ module giedrius-slegeris/openweathermap-store
 go 1.23.0
 
 require (
-	github.com/giedrius-slegeris/proto-definitions v0.0.0-20240901185929-cf41d9e3a1e6
+	github.com/giedrius-slegeris/proto-definitions v0.0.0-20240905134242-69e5782f5b50
 	github.com/go-co-op/gocron v1.37.0
 	github.com/joho/godotenv v1.5.1
 	google.golang.org/grpc v1.66.0

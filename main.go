@@ -15,7 +15,7 @@ import (
 )
 
 var (
-	s            *server
+	s            = &server{}
 	oneCallCache *oneCallResults
 )
 
@@ -25,7 +25,7 @@ type server struct {
 
 type oneCallResults struct {
 	sync.Mutex
-	resp           *api.OneCallResp
+	resp           *pb.GetWeatherDataResponse
 	lastUpdatedUTC time.Time
 }
 
@@ -70,7 +70,7 @@ func main() {
 	}
 }
 
-func updateCache(resp *api.OneCallResp) {
+func updateCache(resp *pb.GetWeatherDataResponse) {
 	log.Printf("Updating cache with new API results")
 	oneCallCache.Lock()
 	defer oneCallCache.Unlock()

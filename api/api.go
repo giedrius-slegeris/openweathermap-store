@@ -3,6 +3,7 @@ package api
 import (
 	"encoding/json"
 	"fmt"
+	pb "github.com/giedrius-slegeris/proto-definitions/openweathermap-store"
 	"io"
 	"net"
 	"net/http"
@@ -17,7 +18,7 @@ func NewOpenWeatherAPI() *OpenWeatherApi {
 	return &OpenWeatherApi{}
 }
 
-func (o *OpenWeatherApi) Get() (*OneCallResp, error) {
+func (o *OpenWeatherApi) Get() (*pb.GetWeatherDataResponse, error) {
 	apiURL, err := o.oneCallURL()
 	if err != nil {
 		return nil, err
@@ -52,7 +53,7 @@ func (o *OpenWeatherApi) Get() (*OneCallResp, error) {
 		return nil, err
 	}
 
-	weatherData := &OneCallResp{}
+	weatherData := &pb.GetWeatherDataResponse{}
 	err = json.Unmarshal(body, &weatherData)
 	if err != nil {
 		return nil, err
