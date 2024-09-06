@@ -25,8 +25,7 @@ type server struct {
 
 type oneCallResults struct {
 	sync.Mutex
-	resp           *pb.GetWeatherDataResponse
-	lastUpdatedUTC time.Time
+	resp *pb.GetWeatherDataResponse
 }
 
 func main() {
@@ -75,5 +74,5 @@ func updateCache(resp *pb.GetWeatherDataResponse) {
 	oneCallCache.Lock()
 	defer oneCallCache.Unlock()
 	oneCallCache.resp = resp
-	oneCallCache.lastUpdatedUTC = time.Now().UTC()
+	oneCallCache.resp.LastUpdated = time.Now().UTC().Unix()
 }
