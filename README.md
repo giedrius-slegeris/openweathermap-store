@@ -23,12 +23,12 @@ Create an .env file in the root directory of the project with below arguments:
 
 example below:
 
-> OPEN_WEATHER_MAP_API_KEY=yourProvisionedApiKey
-> OPEN_WEATHER_MAP_BASE_URL=https://api.openweathermap.org/data/3.0/onecall
+> OPEN_WEATHER_MAP_API_KEY=yourProvisionedApiKey\
+> OPEN_WEATHER_MAP_BASE_URL=https://api.openweathermap.org/data/3.0/onecall \
 > OPEN_WEATHER_MAP_LATITUDE=51.500937\
 > OPEN_WEATHER_MAP_LONGITUDE=-0.124602\
 > OPEN_WEATHER_MAP_UNITS=metric\
-> TIMEZONE=Europe/London\
+> TIMEZONE="Europe/London"\
 > SCHEDULER_CRON="*/5 * * * *"\
 > GRPC_LISTEN_PORT=10060
 
