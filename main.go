@@ -5,7 +5,6 @@ import (
 	"giedrius-slegeris/openweathermap-store/api"
 	"giedrius-slegeris/openweathermap-store/cron"
 	pb "github.com/giedrius-slegeris/proto-definitions/openweathermap-store"
-	"github.com/joho/godotenv"
 	"google.golang.org/grpc"
 	"log"
 	"net"
@@ -24,19 +23,12 @@ type server struct {
 }
 
 type oneCallResults struct {
-	sync.Mutex
+	sync.RWMutex
 	resp *pb.GetWeatherDataResponse
 }
 
 func main() {
 	oneCallCache = new(oneCallResults)
-
-	// Load environment variables from .env file
-	err := godotenv.Load()
-	if err != nil {
-		fmt.Println("Warning: Error loading .env file. Using default environment variables.")
-	}
-
 	owAPI := api.NewOpenWeatherAPI()
 
 	// wrap API call with a callback function to update cache, this is by design to enforce separation of concerns
@@ -50,7 +42,7 @@ func main() {
 		updateCache(resp)
 	}
 
-	if err = cron.StartTaskAsync(run); err != nil {
+	if err := cron.StartTaskAsync(run); err != nil {
 		fmt.Printf("Failed to start cron task: %s\n", err)
 	}
 

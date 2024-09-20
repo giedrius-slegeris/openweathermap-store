@@ -8,6 +8,8 @@ import (
 )
 
 func (s *server) GetWeatherData(_ context.Context, _ *pb.GetWeatherDataRequest) (*pb.GetWeatherDataResponse, error) {
+	oneCallCache.RLock()
+	defer oneCallCache.RUnlock()
 	if oneCallCache == nil || oneCallCache.resp == nil {
 		return nil, status.Errorf(codes.Unavailable, "Weather data unavailable")
 	}

@@ -1,0 +1,18 @@
+services:
+  openweathermap-store:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: openweathermap-store
+    environment:
+      - OPEN_WEATHER_MAP_API_KEY=${OPEN_WEATHER_MAP_API_KEY}
+      - OPEN_WEATHER_MAP_BASE_URL=${OPEN_WEATHER_MAP_BASE_URL}
+      - OPEN_WEATHER_MAP_LATITUDE=${OPEN_WEATHER_MAP_LATITUDE}
+      - OPEN_WEATHER_MAP_LONGITUDE=${OPEN_WEATHER_MAP_LONGITUDE}
+      - OPEN_WEATHER_MAP_UNITS=${OPEN_WEATHER_MAP_UNITS}
+      - TIMEZONE=${TIMEZONE}
+      - SCHEDULER_CRON=${SCHEDULER_CRON}
+      - GRPC_LISTEN_PORT=${GRPC_LISTEN_PORT}
+    ports:
+      - "${GRPC_LISTEN_PORT}:${GRPC_LISTEN_PORT}"
+    restart: always
