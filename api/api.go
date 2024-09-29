@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	pb "github.com/giedrius-slegeris/proto-definitions/openweathermap-store"
+	pb "github.com/giedrius-slegeris/proto-definitions/openweathermapstore"
 	"io"
 	"net"
 	"net/http"
