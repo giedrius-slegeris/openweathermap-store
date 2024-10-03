@@ -2,7 +2,7 @@
 Service to request and cache weather data using OpenWeatherMap API 3.0. The intention is to abstract the requests made
 to the OpenWeatherMap API and provide controlled means of accessing cached weather data which is no longer bound to the
 API rate limitation in a form of GRPC API defined in
-[proto definitions](https://github.com/giedrius-slegeris/proto-definitions/blob/main/protos/openweathermap-store.proto)
+[proto definitions](https://github.com/giedrius-slegeris/proto-definitions-go/blob/main/protos/openweathermap-store.proto)
 for the project.
 
 ## Prerequisites

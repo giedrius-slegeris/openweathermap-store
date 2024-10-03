@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	pb "github.com/giedrius-slegeris/proto-definitions/openweathermapstore"
+	pb "github.com/giedrius-slegeris/proto-definitions-go/openweathermapstore"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )

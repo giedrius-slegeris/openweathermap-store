@@ -2,8 +2,8 @@ github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ3
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/giedrius-slegeris/proto-definitions v0.0.0-20240929110412-357f98390c35 h1:J5k3v8R5du0emjbelNa4NnpfYmABvImeUxUuZqVGMsA=
-github.com/giedrius-slegeris/proto-definitions v0.0.0-20240929110412-357f98390c35/go.mod h1:3q7u50U20bhcTWr1BnPldxFPoJSEoQ9uHpP7RPbv1LU=
+github.com/giedrius-slegeris/proto-definitions-go v0.0.0-20241003113557-9ddec5e3da65 h1:lz5piYjCUburFnEp0G8LjovbbM4XnPaU6Dhga8l7g20=
+github.com/giedrius-slegeris/proto-definitions-go v0.0.0-20241003113557-9ddec5e3da65/go.mod h1:ilHfq2z0ApKW3RChwNe3ltA7iDj40/YOJwFDjBtranI=
 github.com/go-co-op/gocron v1.37.0 h1:ZYDJGtQ4OMhTLKOKMIch+/CY70Brbb1dGdooLEhh7b0=
 github.com/go-co-op/gocron v1.37.0/go.mod h1:3L/n6BkO7ABj+TrfSVXLRzsP26zmikL4ISkLQ0O8iNY=
 github.com/google/go-cmp v0.6.0 h1:ofyhxvXcZhMsU5ulbFiLKl/XBFqE1GSq7atu8tAmTRI=

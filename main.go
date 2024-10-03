@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"giedrius-slegeris/openweathermap-store/api"
 	"giedrius-slegeris/openweathermap-store/cron"
-	pb "github.com/giedrius-slegeris/proto-definitions/openweathermapstore"
+	pb "github.com/giedrius-slegeris/proto-definitions-go/openweathermapstore"
 	"google.golang.org/grpc"
 	"log"
 	"net"
