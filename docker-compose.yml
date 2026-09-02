@@ -3,6 +3,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      # host network during build so apk/go module fetches resolve DNS
+      network: host
     container_name: openweathermap-store
     environment:
       - OPEN_WEATHER_MAP_API_KEY=${OPEN_WEATHER_MAP_API_KEY}

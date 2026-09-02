@@ -1,9 +1,10 @@
 package cron
 
 import (
-	"github.com/go-co-op/gocron"
 	"os"
 	"time"
+
+	"github.com/go-co-op/gocron"
 )
 
 // StartTaskAsync initialises and runs a task from given cron intervals

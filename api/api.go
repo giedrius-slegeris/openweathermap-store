@@ -3,13 +3,14 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	pb "github.com/giedrius-slegeris/proto-definitions-go/openweathermapstore"
 	"io"
 	"net"
 	"net/http"
 	"net/url"
 	"os"
 	"time"
+
+	pb "github.com/giedrius-slegeris/proto-definitions-go/openweathermapstore"
 )
 
 type OpenWeatherApi struct{}

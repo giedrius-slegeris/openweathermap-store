@@ -1,20 +1,30 @@
-FROM debian:bookworm
+# syntax=docker/dockerfile:1
 
-RUN apt-get update && apt-get install -y git wget
+# ---------- build stage ----------
+FROM golang:1.27-alpine3.24 AS build
 
-WORKDIR /tmp
-RUN wget https://go.dev/dl/go1.23.1.linux-amd64.tar.gz
-RUN tar -C /usr/local -xzf go1.23.1.linux-amd64.tar.gz
-RUN rm -rf /tmp/go1.23.1.linux-amd64.tar.gz
+WORKDIR /src
 
-ENV PATH=$PATH:/usr/local/go/bin
+# Resolve dependencies first so this layer stays cached until go.mod/go.sum change
+COPY go.mod go.sum ./
+RUN --mount=type=cache,target=/go/pkg/mod go mod download
 
-RUN mkdir -p /git
-WORKDIR /git
-RUN git clone https://github.com/giedrius-slegeris/openweathermap-store.git
+COPY . .
 
-WORKDIR /git/openweathermap-store
-RUN go mod download
-RUN go build .
+# CGO_ENABLED=0 produces a static binary, so the runtime image needs no libc shim
+RUN --mount=type=cache,target=/go/pkg/mod \
+    --mount=type=cache,target=/root/.cache/go-build \
+    CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /openweathermap-store .
 
-CMD ["./openweathermap-store"]
+# ---------- runtime stage ----------
+FROM alpine:3.24
+
+# ca-certificates: HTTPS calls to the OpenWeatherMap API
+# tzdata: time.LoadLocation(TIMEZONE) in the cron scheduler
+RUN apk add --no-cache ca-certificates tzdata
+
+COPY --from=build /openweathermap-store /usr/local/bin/openweathermap-store
+
+USER nobody
+
+ENTRYPOINT ["openweathermap-store"]
