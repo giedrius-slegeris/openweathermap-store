@@ -1,7 +1,6 @@
 package api
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 	"net"
@@ -11,6 +10,7 @@ import (
 	"time"
 
 	pb "github.com/giedrius-slegeris/proto-definitions-go/openweathermapstore"
+	"google.golang.org/protobuf/encoding/protojson"
 )
 
 type OpenWeatherApi struct{}
@@ -54,10 +54,14 @@ func (o *OpenWeatherApi) Get() (*pb.GetWeatherDataResponse, error) {
 		return nil, err
 	}
 
+	// Decode with protojson rather than encoding/json: the generated structs carry
+	// PascalCase encoding/json tags, so snake_case fields from OpenWeatherMap
+	// (timezone_offset, feels_like, wind_speed, ...) would silently stay at zero.
+	// protojson honours the protobuf json names instead, and DiscardUnknown lets
+	// the upstream add fields the proto does not declare without breaking us.
 	weatherData := &pb.GetWeatherDataResponse{}
-	err = json.Unmarshal(body, &weatherData)
-	if err != nil {
-		return nil, err
+	if err := (protojson.UnmarshalOptions{DiscardUnknown: true}).Unmarshal(body, weatherData); err != nil {
+		return nil, fmt.Errorf("failed to decode weather data: %w", err)
 	}
 
 	return weatherData, nil

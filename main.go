@@ -4,13 +4,15 @@ import (
 	"fmt"
 	"giedrius-slegeris/openweathermap-store/api"
 	"giedrius-slegeris/openweathermap-store/cron"
-	pb "github.com/giedrius-slegeris/proto-definitions-go/openweathermapstore"
-	"google.golang.org/grpc"
 	"log"
 	"net"
 	"os"
 	"sync"
 	"time"
+
+	pb "github.com/giedrius-slegeris/proto-definitions-go/openweathermapstore"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 var (
@@ -55,6 +57,10 @@ func main() {
 
 	gs := grpc.NewServer()
 	pb.RegisterOpenWeatherMapStoreServerServer(gs, s)
+
+	// expose the schema over the wire so clients and tools can discover it
+	// without a local copy of the proto definitions
+	reflection.Register(gs)
 	fmt.Println("Server is listening on port " + listenPort)
 	if err := gs.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %s", err)
